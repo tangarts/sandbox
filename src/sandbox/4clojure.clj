@@ -1003,8 +1003,8 @@ Class
 ;; [Problem 135: Infix Calculator [Easy]](http://www.4clojure.com/problem/135)
 
 (comment
-(fn calc [& exp]
-  (reduce #(if (fn? %1) (%1 %2) (partial %2 %1)) identity exp))
+((fn calc [& exp]
+  (reduce #(if (fn? %1) (%1 %2) (partial %2 %1)) identity exp)) 2 + 3 * 10)
 )
 
 ;; [Problem 137: Digits and bases [Medium]](http://www.4clojure.com/problem/137)
