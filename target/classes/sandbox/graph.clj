@@ -31,7 +31,34 @@
          (into (pop frontier)
                (remove explored neighbors)))))))
 
+(defn neighbors [x y]
+  [[(inc x) y]
+   [(dec x) y]
+   [x (inc y)]
+   [x (dec y)]])
 
+(defn dfs 
+  [matrix [x y]]
+  (loop [verticies []
+         explored #{[x y]}
+         frontier [[x y]]]
+    (if (empty? frontier) explored
+      (let [current (peek frontier)
+            nb (filterv (fn [[x y]] (and (>= x 0) 
+                                       (>= y 0)
+                                       (<= x (count matrix))
+                                       (<= y (count matrix))
+                                       (not (explored (get-in matrix [x y])))))
+                        (neighbors x y))]
+        (recur
+          (conj verticies current)
+          (into explored nb)
+          (into (pop frontier) 
+                (remove explored nb)))))))
+
+(def matrix [[1 0 0]
+             [1 1 0]
+             [0 1 1]])
 
 (traverse-depth graph :10)
 
